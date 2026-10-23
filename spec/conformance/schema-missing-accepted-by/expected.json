@@ -1,0 +1,10 @@
+{
+  "about": "An accepted decision must record who accepted it (\u00a76.4).",
+  "valid": false,
+  "errors": [
+    {
+      "check": "schema",
+      "file": "truss/decisions/DEC-0002-links-7d.md"
+    }
+  ]
+}

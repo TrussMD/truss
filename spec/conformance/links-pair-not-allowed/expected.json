@@ -1,0 +1,10 @@
+{
+  "about": "Research may not carry a change (\u00a75.1).",
+  "valid": false,
+  "errors": [
+    {
+      "check": "links",
+      "file": "truss/research/RES-0001-invite-friction.md"
+    }
+  ]
+}

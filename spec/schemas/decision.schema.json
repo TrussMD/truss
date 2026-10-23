@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://truss.md/spec/0.1/schemas/decision.schema.json",
+  "title": "decision: A choice and its reasons",
+  "allOf": [
+    {
+      "$ref": "common.schema.json#/$defs/doc"
+    },
+    {
+      "type": "object",
+      "required": [],
+      "properties": {
+        "type": {
+          "const": "decision"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^DEC-[0-9]{4,}$"
+        },
+        "status": {
+          "enum": [
+            "proposed",
+            "accepted",
+            "rejected",
+            "contested",
+            "superseded"
+          ]
+        },
+        "impact": {
+          "enum": [
+            "low",
+            "high"
+          ],
+          "default": "high"
+        },
+        "accepted_by": {
+          "$ref": "common.schema.json#/$defs/actor"
+        },
+        "rejected_by": {
+          "$ref": "common.schema.json#/$defs/actor"
+        },
+        "supersedes": {
+          "$ref": "common.schema.json#/$defs/idOrList"
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "accepted",
+              "contested",
+              "superseded"
+            ]
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "accepted_by"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "rejected"
+            ]
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "rejected_by"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://truss.md/spec/0.1/schemas/bug.schema.json",
+  "title": "bug: Unintended behaviour: we intended x, the software did y",
+  "allOf": [
+    {
+      "$ref": "common.schema.json#/$defs/doc"
+    },
+    {
+      "type": "object",
+      "required": [],
+      "properties": {
+        "type": {
+          "const": "bug"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^BUG-[0-9]{4,}$"
+        },
+        "status": {
+          "enum": [
+            "open",
+            "fixed",
+            "wont-fix",
+            "not-a-bug"
+          ]
+        },
+        "intent": {
+          "const": "undocumented"
+        }
+      }
+    }
+  ]
+}

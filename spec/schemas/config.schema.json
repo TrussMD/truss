@@ -1,0 +1,207 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://truss.md/spec/0.1/schemas/config.schema.json",
+  "title": "truss.md frontmatter: the repo's Truss configuration",
+  "type": "object",
+  "required": [
+    "spec"
+  ],
+  "properties": {
+    "spec": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+$"
+    },
+    "root": {
+      "type": "string",
+      "pattern": "^(?![/~\\\\])(?![A-Za-z]:)(?!(?:.*/)?\\.\\.(?:/|$))[^\\\\]+$",
+      "default": "truss"
+    },
+    "agents_accept": {
+      "enum": [
+        "none",
+        "low",
+        "all"
+      ],
+      "default": "low"
+    },
+    "use": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "problem",
+          "idea",
+          "bug",
+          "prd",
+          "change",
+          "feature",
+          "plan",
+          "decision",
+          "research",
+          "interview",
+          "support"
+        ]
+      },
+      "description": "The core types this repo tracks. Default: all of them"
+    },
+    "checks": {
+      "type": "object",
+      "properties": {
+        "coverage": {
+          "enum": [
+            "off",
+            "warn",
+            "error"
+          ],
+          "default": "warn"
+        },
+        "freshness": {
+          "enum": [
+            "off",
+            "warn",
+            "error"
+          ],
+          "default": "warn"
+        },
+        "evidence": {
+          "enum": [
+            "off",
+            "warn",
+            "error"
+          ],
+          "default": "warn"
+        },
+        "frozen": {
+          "enum": [
+            "off",
+            "warn",
+            "error"
+          ],
+          "default": "warn"
+        },
+        "lifecycle": {
+          "enum": [
+            "off",
+            "warn",
+            "error"
+          ],
+          "default": "warn"
+        },
+        "privacy": {
+          "enum": [
+            "off",
+            "warn",
+            "error"
+          ],
+          "default": "warn"
+        },
+        "hygiene": {
+          "enum": [
+            "off",
+            "warn",
+            "error"
+          ],
+          "default": "warn"
+        },
+        "evidence_for_decisions": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "fields": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "description": "A JSON Schema for the field's value"
+      }
+    },
+    "types": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9-]*$",
+        "not": {
+          "enum": [
+            "problem",
+            "idea",
+            "bug",
+            "prd",
+            "change",
+            "feature",
+            "plan",
+            "decision",
+            "research",
+            "interview",
+            "support"
+          ]
+        }
+      },
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "prefix",
+          "statuses"
+        ],
+        "properties": {
+          "prefix": {
+            "type": "string",
+            "pattern": "^[A-Z][A-Z0-9]*$",
+            "not": {
+              "enum": [
+                "PROB",
+                "IDEA",
+                "BUG",
+                "PRD",
+                "CHG",
+                "FEAT",
+                "PLAN",
+                "DEC",
+                "RES",
+                "INTV",
+                "SUP"
+              ]
+            }
+          },
+          "folder": {
+            "type": "string",
+            "pattern": "^(?![/~\\\\])(?![A-Za-z]:)(?!(?:.*/)?\\.\\.(?:/|$))[^\\\\]+$"
+          },
+          "statuses": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1
+          },
+          "frozen": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "carries": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "carried_by": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "supersedes": {
+            "type": "boolean",
+            "default": false
+          },
+          "schema": {
+            "type": "string",
+            "pattern": "^(?![/~\\\\])(?![A-Za-z]:)(?!(?:.*/)?\\.\\.(?:/|$))[^\\\\]+$"
+          }
+        }
+      }
+    }
+  }
+}

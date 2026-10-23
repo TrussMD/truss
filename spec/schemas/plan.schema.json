@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://truss.md/spec/0.1/schemas/plan.schema.json",
+  "title": "plan: How a piece of work will be done, written before doing it",
+  "allOf": [
+    {
+      "$ref": "common.schema.json#/$defs/doc"
+    },
+    {
+      "type": "object",
+      "required": [],
+      "properties": {
+        "type": {
+          "const": "plan"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^PLAN-[0-9]{4,}$"
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "approved",
+            "done",
+            "superseded",
+            "dropped"
+          ]
+        },
+        "approved_by": {
+          "$ref": "common.schema.json#/$defs/person"
+        },
+        "supersedes": {
+          "$ref": "common.schema.json#/$defs/idOrList"
+        },
+        "depends_on": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/id"
+          }
+        },
+        "parent": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "step": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "approved",
+              "done"
+            ]
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "approved_by"
+        ]
+      }
+    }
+  ]
+}

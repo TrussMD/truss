@@ -1,0 +1,10 @@
+{
+  "about": "A superseded doc must be superseded by some doc (\u00a76.3).",
+  "valid": false,
+  "errors": [
+    {
+      "check": "supersession",
+      "file": "truss/decisions/DEC-0001-links-72h.md"
+    }
+  ]
+}

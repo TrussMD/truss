@@ -1,0 +1,10 @@
+{
+  "about": "A label that does not exist in its target (\u00a72.3).",
+  "valid": false,
+  "errors": [
+    {
+      "check": "links",
+      "file": "truss/decisions/DEC-0002-links-7d.md"
+    }
+  ]
+}

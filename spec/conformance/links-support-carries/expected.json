@@ -1,0 +1,10 @@
+{
+  "about": "A support doc carries nothing (\u00a75.1).",
+  "valid": false,
+  "errors": [
+    {
+      "check": "links",
+      "file": "truss/support/SUP-0001-link-expired.md"
+    }
+  ]
+}

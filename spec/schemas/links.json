@@ -1,0 +1,93 @@
+{
+  "$comment": "The link table. carries[from][to] is the meaning of the link; a pair not listed is not allowed. 'ticket' is a ticket reference. Truss spec 0.1.",
+  "spec": "0.1",
+  "carries": {
+    "problem": {
+      "research": "cites",
+      "interview": "cites",
+      "support": "cites",
+      "ticket": "cites",
+      "decision": "rests on"
+    },
+    "idea": {
+      "problem": "addresses",
+      "research": "cites",
+      "interview": "cites",
+      "support": "cites",
+      "ticket": "cites",
+      "decision": "rests on"
+    },
+    "bug": {
+      "feature": "breaks the intent written in",
+      "prd": "breaks the intent written in",
+      "decision": "breaks the intent written in",
+      "interview": "reported in",
+      "support": "reported in",
+      "ticket": "reported in"
+    },
+    "prd": {
+      "problem": "answers",
+      "idea": "answers",
+      "bug": "answers",
+      "feature": "creates or changes",
+      "decision": "rests on",
+      "research": "cites",
+      "interview": "cites",
+      "support": "cites",
+      "ticket": "cites"
+    },
+    "change": {
+      "prd": "implements",
+      "bug": "fixes",
+      "feature": "touches",
+      "decision": "rests on",
+      "research": "cites",
+      "support": "cites"
+    },
+    "feature": {
+      "decision": "governed by"
+    },
+    "plan": {
+      "change": "plans",
+      "prd": "plans",
+      "decision": "rests on",
+      "research": "cites"
+    },
+    "decision": {
+      "problem": "addresses",
+      "decision": "rests on",
+      "research": "cites",
+      "interview": "cites",
+      "support": "cites",
+      "ticket": "cites"
+    },
+    "research": {
+      "interview": "draws on",
+      "research": "cites",
+      "support": "cites",
+      "ticket": "cites"
+    },
+    "interview": {},
+    "support": {}
+  },
+  "supersedes": [
+    "decision",
+    "prd",
+    "plan"
+  ],
+  "depends_on": {
+    "change": [
+      "change"
+    ],
+    "plan": [
+      "plan",
+      "change"
+    ]
+  },
+  "parent": {
+    "plan": [
+      "plan"
+    ]
+  },
+  "related": "any"
+}

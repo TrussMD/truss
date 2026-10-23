@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://truss.md/spec/0.1/schemas/support.schema.json",
+  "title": "support: One topic customers keep raising with support, drawn from any number of tickets",
+  "allOf": [
+    {
+      "$ref": "common.schema.json#/$defs/doc"
+    },
+    {
+      "type": "object",
+      "required": [
+        "first_seen"
+      ],
+      "properties": {
+        "type": {
+          "const": "support"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^SUP-[0-9]{4,}$"
+        },
+        "status": {
+          "enum": [
+            "open",
+            "triaged",
+            "closed"
+          ]
+        },
+        "first_seen": {
+          "$ref": "common.schema.json#/$defs/date"
+        },
+        "source": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$"
+        },
+        "tickets": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/ticketRef"
+          }
+        },
+        "count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "visibility": {
+          "const": "internal"
+        }
+      }
+    }
+  ]
+}

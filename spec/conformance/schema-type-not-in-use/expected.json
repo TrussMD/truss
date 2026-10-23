@@ -1,0 +1,10 @@
+{
+  "about": "A doc whose type truss.md does not use (\u00a79.1).",
+  "valid": false,
+  "errors": [
+    {
+      "check": "schema",
+      "file": "truss/changes/CHG-0001-invite-links.md"
+    }
+  ]
+}

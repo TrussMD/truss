@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://truss.md/spec/0.1/schemas/problem.schema.json",
+  "title": "problem: A customer or business problem we have identified and articulated",
+  "allOf": [
+    {
+      "$ref": "common.schema.json#/$defs/doc"
+    },
+    {
+      "type": "object",
+      "required": [],
+      "properties": {
+        "type": {
+          "const": "problem"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^PROB-[0-9]{4,}$"
+        },
+        "status": {
+          "enum": [
+            "open",
+            "solved",
+            "wont-solve"
+          ]
+        }
+      }
+    }
+  ]
+}

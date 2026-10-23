@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://truss.md/spec/0.1/schemas/prd.schema.json",
+  "title": "prd: What we are building, and how we will know it is done",
+  "allOf": [
+    {
+      "$ref": "common.schema.json#/$defs/doc"
+    },
+    {
+      "type": "object",
+      "required": [],
+      "properties": {
+        "type": {
+          "const": "prd"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^PRD-[0-9]{4,}$"
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "in-review",
+            "approved",
+            "shipped",
+            "dropped",
+            "superseded"
+          ]
+        },
+        "approved_by": {
+          "$ref": "common.schema.json#/$defs/person"
+        },
+        "supersedes": {
+          "$ref": "common.schema.json#/$defs/idOrList"
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "approved",
+              "shipped"
+            ]
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "required": [
+          "approved_by"
+        ]
+      }
+    }
+  ]
+}

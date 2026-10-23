@@ -1,0 +1,14 @@
+{
+  "about": "Two docs share an ID; both files are reported (\u00a711.1).",
+  "valid": false,
+  "errors": [
+    {
+      "check": "ids",
+      "file": "truss/research/RES-0001-invite-friction.md"
+    },
+    {
+      "check": "ids",
+      "file": "truss/research/RES-0001-copy.md"
+    }
+  ]
+}

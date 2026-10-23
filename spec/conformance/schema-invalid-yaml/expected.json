@@ -1,0 +1,10 @@
+{
+  "about": "A title containing ': ' must be quoted (\u00a72.1).",
+  "valid": false,
+  "errors": [
+    {
+      "check": "schema",
+      "file": "truss/changes/CHG-0001-invite-links.md"
+    }
+  ]
+}

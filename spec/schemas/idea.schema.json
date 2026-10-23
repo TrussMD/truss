@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://truss.md/spec/0.1/schemas/idea.schema.json",
+  "title": "idea: A solution thought of first, before any problem",
+  "allOf": [
+    {
+      "$ref": "common.schema.json#/$defs/doc"
+    },
+    {
+      "type": "object",
+      "required": [],
+      "properties": {
+        "type": {
+          "const": "idea"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^IDEA-[0-9]{4,}$"
+        },
+        "status": {
+          "enum": [
+            "open",
+            "parked",
+            "dropped",
+            "shipped"
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "about": "A link to a doc that does not exist.",
+  "valid": false,
+  "errors": [
+    {
+      "check": "links",
+      "file": "truss/prds/PRD-0001-team-invites.md"
+    }
+  ]
+}

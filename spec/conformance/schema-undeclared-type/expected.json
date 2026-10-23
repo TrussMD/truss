@@ -1,0 +1,10 @@
+{
+  "about": "A type that is neither core nor declared.",
+  "valid": false,
+  "errors": [
+    {
+      "check": "schema",
+      "file": "truss/roadmaps/ROAD-0001-q4.md"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "about": "A status the type does not allow.",
+  "valid": false,
+  "errors": [
+    {
+      "check": "schema",
+      "file": "truss/prds/PRD-0001-team-invites.md"
+    }
+  ]
+}

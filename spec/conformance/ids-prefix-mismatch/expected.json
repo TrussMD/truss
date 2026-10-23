@@ -1,0 +1,10 @@
+{
+  "about": "An ID whose prefix does not match its type.",
+  "valid": false,
+  "errors": [
+    {
+      "check": "ids",
+      "file": "truss/decisions/PRD-0099-wrong.md"
+    }
+  ]
+}

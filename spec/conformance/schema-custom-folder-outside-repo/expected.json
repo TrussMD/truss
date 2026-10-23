@@ -1,0 +1,10 @@
+{
+  "about": "A custom type's folder must stay inside the repo (\u00a710.2, \u00a714).",
+  "valid": false,
+  "errors": [
+    {
+      "check": "schema",
+      "file": "truss.md"
+    }
+  ]
+}

@@ -1,0 +1,163 @@
+{
+  "$comment": "The eleven core types: prefix, default folder, statuses, frozen statuses, and label kind. Truss spec 0.1.",
+  "spec": "0.1",
+  "types": {
+    "problem": {
+      "prefix": "PROB",
+      "folder": "problems",
+      "statuses": [
+        "open",
+        "solved",
+        "wont-solve"
+      ],
+      "frozen": [
+        "solved",
+        "wont-solve"
+      ]
+    },
+    "idea": {
+      "prefix": "IDEA",
+      "folder": "ideas",
+      "statuses": [
+        "open",
+        "parked",
+        "dropped",
+        "shipped"
+      ],
+      "frozen": [
+        "dropped",
+        "shipped"
+      ]
+    },
+    "bug": {
+      "prefix": "BUG",
+      "folder": "bugs",
+      "statuses": [
+        "open",
+        "fixed",
+        "wont-fix",
+        "not-a-bug"
+      ],
+      "frozen": [
+        "fixed",
+        "wont-fix",
+        "not-a-bug"
+      ]
+    },
+    "prd": {
+      "prefix": "PRD",
+      "folder": "prds",
+      "statuses": [
+        "draft",
+        "in-review",
+        "approved",
+        "shipped",
+        "dropped",
+        "superseded"
+      ],
+      "frozen": [
+        "shipped",
+        "dropped",
+        "superseded"
+      ],
+      "label": "AC"
+    },
+    "change": {
+      "prefix": "CHG",
+      "folder": "changes",
+      "statuses": [
+        "open",
+        "shipped",
+        "dropped"
+      ],
+      "frozen": [
+        "shipped",
+        "dropped"
+      ]
+    },
+    "feature": {
+      "prefix": "FEAT",
+      "folder": "features",
+      "statuses": [
+        "planned",
+        "live",
+        "deprecated",
+        "removed",
+        "dropped"
+      ],
+      "frozen": [
+        "removed",
+        "dropped"
+      ]
+    },
+    "plan": {
+      "prefix": "PLAN",
+      "folder": "plans",
+      "statuses": [
+        "draft",
+        "approved",
+        "done",
+        "superseded",
+        "dropped"
+      ],
+      "frozen": [
+        "done",
+        "superseded",
+        "dropped"
+      ]
+    },
+    "decision": {
+      "prefix": "DEC",
+      "folder": "decisions",
+      "statuses": [
+        "proposed",
+        "accepted",
+        "rejected",
+        "contested",
+        "superseded"
+      ],
+      "frozen": [
+        "accepted",
+        "rejected",
+        "contested",
+        "superseded"
+      ]
+    },
+    "research": {
+      "prefix": "RES",
+      "folder": "research",
+      "statuses": [
+        "draft",
+        "published"
+      ],
+      "frozen": [
+        "published"
+      ],
+      "label": "F"
+    },
+    "interview": {
+      "prefix": "INTV",
+      "folder": "interviews",
+      "statuses": [
+        "draft",
+        "published"
+      ],
+      "frozen": [
+        "published"
+      ],
+      "label": "Q"
+    },
+    "support": {
+      "prefix": "SUP",
+      "folder": "support",
+      "statuses": [
+        "open",
+        "triaged",
+        "closed"
+      ],
+      "frozen": [
+        "closed"
+      ]
+    }
+  }
+}

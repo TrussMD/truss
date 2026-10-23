@@ -1,0 +1,10 @@
+{
+  "about": "Research has F labels, not AC labels (\u00a72.3).",
+  "valid": false,
+  "errors": [
+    {
+      "check": "links",
+      "file": "truss/decisions/DEC-0002-links-7d.md"
+    }
+  ]
+}

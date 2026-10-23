@@ -1,0 +1,10 @@
+{
+  "about": "A repo without truss.md is not a Truss repo (\u00a71).",
+  "valid": false,
+  "errors": [
+    {
+      "check": "schema",
+      "file": "truss.md"
+    }
+  ]
+}

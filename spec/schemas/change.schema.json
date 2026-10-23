@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://truss.md/spec/0.1/schemas/change.schema.json",
+  "title": "change: The unit of work: one or more PRs or commits",
+  "allOf": [
+    {
+      "$ref": "common.schema.json#/$defs/doc"
+    },
+    {
+      "type": "object",
+      "required": [
+        "kind",
+        "user_facing"
+      ],
+      "properties": {
+        "type": {
+          "const": "change"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^CHG-[0-9]{4,}$"
+        },
+        "status": {
+          "enum": [
+            "open",
+            "shipped",
+            "dropped"
+          ]
+        },
+        "kind": {
+          "enum": [
+            "add",
+            "improve",
+            "fix"
+          ]
+        },
+        "user_facing": {
+          "type": "boolean"
+        },
+        "depends_on": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/id"
+          }
+        },
+        "branch": {
+          "type": "string"
+        },
+        "pr": {
+          "type": [
+            "string",
+            "integer"
+          ]
+        }
+      }
+    }
+  ]
+}

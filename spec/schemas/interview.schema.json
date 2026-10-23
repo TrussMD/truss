@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://truss.md/spec/0.1/schemas/interview.schema.json",
+  "title": "interview: Notes from one conversation with a customer",
+  "allOf": [
+    {
+      "$ref": "common.schema.json#/$defs/doc"
+    },
+    {
+      "type": "object",
+      "required": [
+        "participant"
+      ],
+      "properties": {
+        "type": {
+          "const": "interview"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^INTV-[0-9]{4,}$"
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "published"
+          ]
+        },
+        "format": {
+          "enum": [
+            "interview",
+            "usability-test",
+            "sales-call",
+            "support-call"
+          ],
+          "default": "interview"
+        },
+        "participant": {
+          "type": "object",
+          "required": [
+            "ref",
+            "role"
+          ],
+          "properties": {
+            "ref": {
+              "type": "string",
+              "minLength": 1
+            },
+            "role": {
+              "type": "string",
+              "minLength": 1
+            },
+            "segment": {
+              "type": "string"
+            }
+          }
+        },
+        "source": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^https?://\\S+$"
+            },
+            {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]*:\\S+$"
+            }
+          ]
+        },
+        "visibility": {
+          "const": "internal"
+        }
+      }
+    }
+  ]
+}

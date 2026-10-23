@@ -1,0 +1,10 @@
+{
+  "about": "An interview is always internal (\u00a78).",
+  "valid": false,
+  "errors": [
+    {
+      "check": "schema",
+      "file": "truss/interviews/INTV-0001-agency-admin.md"
+    }
+  ]
+}

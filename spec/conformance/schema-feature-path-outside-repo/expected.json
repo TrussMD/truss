@@ -1,0 +1,10 @@
+{
+  "about": "A feature's paths must stay inside the repo (\u00a74.6, \u00a714).",
+  "valid": false,
+  "errors": [
+    {
+      "check": "schema",
+      "file": "truss/features/FEAT-0001-team-invites.md"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "about": "root must be a relative path (\u00a79, \u00a714).",
+  "valid": false,
+  "errors": [
+    {
+      "check": "schema",
+      "file": "truss.md"
+    }
+  ]
+}
