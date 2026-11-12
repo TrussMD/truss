@@ -16,14 +16,6 @@
       "pattern": "^(?![/~\\\\])(?![A-Za-z]:)(?!(?:.*/)?\\.\\.(?:/|$))[^\\\\]+$",
       "default": "truss"
     },
-    "agents_accept": {
-      "enum": [
-        "none",
-        "low",
-        "all"
-      ],
-      "default": "low"
-    },
     "use": {
       "type": "array",
       "uniqueItems": true,

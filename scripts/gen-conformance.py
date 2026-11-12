@@ -111,15 +111,15 @@ R, D1, D2, P, C = (
     "truss/decisions/DEC-0002-links-7d.md", "truss/prds/PRD-0001-team-invites.md", "truss/changes/CHG-0001-invite-links.md")
 
 case("valid-minimal", "A small repo with research, a superseded decision, a PRD and a change.", True)
-case("valid-agent-accepts-low-impact", "An agent may accept a low-impact decision that supersedes nothing (§6.4).", True,
+case("valid-recorded-by", "A person's decision written down by an agent names both (§6.4).", True,
      add={"truss/decisions/DEC-0003-absolute-expiry.md": """---
 type: decision
 id: DEC-0003
 title: Store expiry as an absolute timestamp
 status: accepted
 date: 2026-08-11
-impact: low
-accepted_by: agent:claude-code
+accepted_by: "@marcus"
+recorded_by: agent:claude-code
 ---
 ## Decision
 
@@ -171,7 +171,7 @@ case("schema-status-not-allowed", "A status the type does not allow.", False, [(
      edit={P: ("status: draft", "status: aproved")})
 case("schema-missing-accepted-by", "An accepted decision must record who accepted it (§6.4).", False, [("schema", "DEC-0002")],
      edit={D2: ('accepted_by: "@marcus"\n', "")})
-case("schema-agent-accepts-high-impact", "An agent may not accept a decision that supersedes another (§6.4).", False, [("schema", "DEC-0002")],
+case("valid-agent-accepts", "An agent that made a decision records it under its own name, here one that supersedes another (§6.4).", True,
      edit={D2: ('accepted_by: "@marcus"', "accepted_by: agent:claude-code")})
 case("schema-undeclared-type", "A type that is neither core nor declared.", False, [("schema", "truss/roadmaps/ROAD-0001-q4.md")],
      add={"truss/roadmaps/ROAD-0001-q4.md": "---\ntype: roadmap\nid: ROAD-0001\ntitle: Q4\nstatus: draft\ndate: 2026-10-01\n---\n"})

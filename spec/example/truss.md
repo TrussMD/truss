@@ -1,7 +1,6 @@
 ---
 spec: "0.1"
 root: truss
-agents_accept: low
 checks:
   coverage: error
   privacy: error

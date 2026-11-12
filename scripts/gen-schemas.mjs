@@ -92,8 +92,9 @@ json("common.schema.json", {
     carriesItem: { anyOf: [{ $ref: "#/$defs/docRef" }, { $ref: "#/$defs/ticketRef" }, { $ref: "#/$defs/ticketObject" }] },
     idOrList: { anyOf: [{ $ref: "#/$defs/id" }, { type: "array", items: { $ref: "#/$defs/id" }, minItems: 1 }] },
     person: { type: "string", pattern: "^@[A-Za-z0-9][A-Za-z0-9._-]*$", description: "A person: \"@handle\"" },
+    agent: { type: "string", pattern: "^agent:[a-z0-9][a-z0-9._-]*$", description: "An agent: agent:name" },
     actor: {
-      anyOf: [{ $ref: "#/$defs/person" }, { type: "string", pattern: "^agent:[a-z0-9][a-z0-9._-]*$" }],
+      anyOf: [{ $ref: "#/$defs/person" }, { $ref: "#/$defs/agent" }],
       description: "A person (\"@handle\") or an agent (agent:name)",
     },
     date: { type: "string", pattern: "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
@@ -127,7 +128,7 @@ const extra = {
   idea: {},
   bug: { properties: { intent: { const: "undocumented" } } },
   prd: {
-    properties: { approved_by: { $ref: C + "person" }, supersedes: { $ref: C + "idOrList" } },
+    properties: { approved_by: { $ref: C + "person" }, recorded_by: { $ref: C + "agent" }, supersedes: { $ref: C + "idOrList" } },
     allOf: [requireWhen("approved_by", ["approved", "shipped"])],
   },
   change: {
@@ -144,6 +145,7 @@ const extra = {
   plan: {
     properties: {
       approved_by: { $ref: C + "person" },
+      recorded_by: { $ref: C + "agent" },
       supersedes: { $ref: C + "idOrList" },
       depends_on: { type: "array", items: { $ref: C + "id" } },
       parent: { $ref: C + "id" },
@@ -156,6 +158,7 @@ const extra = {
       impact: { enum: ["low", "high"], default: "high" },
       accepted_by: { $ref: C + "actor" },
       rejected_by: { $ref: C + "actor" },
+      recorded_by: { $ref: C + "agent" },
       supersedes: { $ref: C + "idOrList" },
     },
     allOf: [requireWhen("accepted_by", ["accepted", "contested", "superseded"]), requireWhen("rejected_by", ["rejected"])],
@@ -242,7 +245,6 @@ json("config.schema.json", {
   properties: {
     spec: { type: "string", pattern: "^[0-9]+\\.[0-9]+$" },
     root: { type: "string", pattern: SAFE_PATH, default: "truss" },
-    agents_accept: { enum: ["none", "low", "all"], default: "low" },
     use: {
       type: "array", uniqueItems: true,
       items: { enum: Object.keys(types) },

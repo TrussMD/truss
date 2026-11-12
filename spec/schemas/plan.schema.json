@@ -29,6 +29,9 @@
         "approved_by": {
           "$ref": "common.schema.json#/$defs/person"
         },
+        "recorded_by": {
+          "$ref": "common.schema.json#/$defs/agent"
+        },
         "supersedes": {
           "$ref": "common.schema.json#/$defs/idOrList"
         },

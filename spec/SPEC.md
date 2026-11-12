@@ -165,7 +165,7 @@ Unintended behaviour. We intended the software to do x, and it did y.
 What we are building, and how we will know it is done.
 
 - **Statuses:** `draft`, `in-review`, `approved`, `shipped`, `dropped`, `superseded`. Frozen: `shipped`, `dropped`, `superseded`.
-- **Fields:** `approved_by` (required when `approved` or `shipped`; a person), `supersedes` (optional).
+- **Fields:** `approved_by` (required when `approved` or `shipped`; a person), `recorded_by` (optional; [§6.4](#64-who-may-set-a-status)), `supersedes` (optional).
 - **Body:** goal, non-goals, and acceptance criteria labelled `**AC1.**`, `**AC2.**` and so on.
 - A PRD carries at least one problem, idea or bug, and the feature it creates or changes. A PRD for a new capability creates that feature's doc, with status `planned`, in the same commit.
 - A PRD stays editable until it ships. Changes to its acceptance criteria MAY carry a decision explaining them.
@@ -215,7 +215,7 @@ What one capability of the product does today. It is the one doc that is edited 
 How a piece of work will be done, written before doing it. The plan an agent writes before coding (for example in Claude Code's plan mode) is a plan doc, saved when the plan is approved.
 
 - **Statuses:** `draft`, `approved`, `done`, `superseded`, `dropped`. Frozen: `done`, `superseded`, `dropped`.
-- **Fields:** `approved_by` (required when `approved` or `done`; a person), `supersedes` (a replan), `depends_on` (plans or changes that must finish first), `parent` and `step` (optional; this plan is step `step` of the plan `parent`).
+- **Fields:** `approved_by` (required when `approved` or `done`; a person), `recorded_by` (optional; [§6.4](#64-who-may-set-a-status)), `supersedes` (a replan), `depends_on` (plans or changes that must finish first), `parent` and `step` (optional; this plan is step `step` of the plan `parent`).
 - **Body:** goal, tasks, done when. Risks and open questions are optional.
 - A plan carries what it is for: a change (an implementation plan), a PRD (a delivery plan across several changes), or decisions and research (a roadmap). A plan never decides anything: a choice made while planning is a decision the plan carries.
 - An approved plan stays editable so that tasks can be ticked off. Changing direction is a new plan that supersedes it. When work deviates from a plan, the deviation is a decision.
@@ -228,8 +228,9 @@ A choice and its reasons.
   - `rejected`: proposed and turned down. Never in force. Do not propose it again without new evidence.
   - `contested`: accepted and still in force, but in question, because a person or new evidence disputes it. It ends superseded, or back to `accepted`.
 - **Fields:**
-  - `impact` (optional): `low` or `high`, default `high`. A decision that supersedes another counts as `high`, whatever it says.
+  - `impact` (optional): `low` or `high`, default `high`. A hint for reviewers about which decisions deserve a closer look. No check reads it.
   - `accepted_by` (required when `accepted`, `contested` or `superseded`), `rejected_by` (required when `rejected`): a person or an agent ([§6.4](#64-who-may-set-a-status)).
+  - `recorded_by` (optional): the agent that wrote the record when a person made the call ([§6.4](#64-who-may-set-a-status)).
   - `supersedes` (optional): the decision this one replaces.
 - **Body:** context, decision, consequences.
 
@@ -367,12 +368,21 @@ Some statuses record a judgement, and the doc records who made it.
 |---|---|---|---|
 | prd | `approved` | `approved_by` | A person |
 | plan | `approved` | `approved_by` | A person |
-| decision | `accepted` | `accepted_by` | A person, or an agent when permitted |
-| decision | `rejected` | `rejected_by` | A person, or an agent when permitted |
+| decision | `accepted` | `accepted_by` | A person or an agent |
+| decision | `rejected` | `rejected_by` | A person or an agent |
 
-An agent may accept or reject a decision when `truss.md` permits it ([§9](#9-trussmd)). By default an agent may do so only for a decision with `impact: low` that supersedes nothing. A person's acceptance is still given in review: an agent-accepted decision lands in the same PR as the code.
+The `_by` field names whoever made the judgement. An agent that makes a decision on its own, in an unattended run for example, records it as accepted under its own name, such as `agent:claude-code`. A person still sees it in review: an agent-accepted decision lands in the same PR as the code.
 
-A tool acting for an agent MUST NOT write a person's handle into an `_by` field, and MUST NOT set a status the agent is not permitted to set.
+When a person makes the judgement and an agent writes the doc, as when someone approves a plan or agrees a decision in a session, the `_by` field holds the person's handle and `recorded_by` names the agent:
+
+```yaml
+accepted_by: "@marcus"
+recorded_by: agent:claude-code
+```
+
+A tool acting for an agent MUST NOT write a person's handle into an `_by` field unless that person made the judgement, and MUST then set `recorded_by`. An agent MUST NOT approve a PRD or a plan.
+
+No check can tell who typed a file. `recorded_by` marks the docs where an agent wrote a person's name, so that review can confirm them.
 
 ---
 
@@ -402,7 +412,6 @@ Git keeps history, so a name committed once is hard to remove. A customer's requ
 ---
 spec: "0.1"
 root: truss
-agents_accept: low
 checks:
   coverage: error
   privacy: error
@@ -418,7 +427,6 @@ Record decisions as you make them. Propose changes rather than overwriting them.
 |---|---|---|
 | `spec` | Yes | The version of this spec the docs follow, as a string |
 | `root` | No | The docs folder, relative to the repo root and inside it ([§14](#14-security-considerations)). Default `truss`. `.` means the repo root itself, for a repo that holds only docs |
-| `agents_accept` | No | Which decisions an agent may accept or reject: `none`, `low` (the default) or `all` |
 | `checks` | No | A level for each policy check: `off`, `warn` (the default) or `error` |
 | `fields` | No | Custom fields ([§10.1](#101-custom-fields)) |
 | `types` | No | Custom types ([§10.2](#102-custom-types)) |

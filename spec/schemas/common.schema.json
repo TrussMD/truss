@@ -72,14 +72,18 @@
       "pattern": "^@[A-Za-z0-9][A-Za-z0-9._-]*$",
       "description": "A person: \"@handle\""
     },
+    "agent": {
+      "type": "string",
+      "pattern": "^agent:[a-z0-9][a-z0-9._-]*$",
+      "description": "An agent: agent:name"
+    },
     "actor": {
       "anyOf": [
         {
           "$ref": "#/$defs/person"
         },
         {
-          "type": "string",
-          "pattern": "^agent:[a-z0-9][a-z0-9._-]*$"
+          "$ref": "#/$defs/agent"
         }
       ],
       "description": "A person (\"@handle\") or an agent (agent:name)"
