@@ -56,7 +56,11 @@ def check_repo(repo, label):
     for e in config.iter_errors(cfg or {}):
         fail(f"{label}/truss.md", e.message)
     custom = set(((cfg or {}).get("types") or {}))
-    for f in sorted((repo / (cfg or {}).get("root", "truss")).rglob("*.md")):
+    root = repo / (cfg or {}).get("root", "truss")
+    for f in sorted(root.rglob("*.md")):
+        # SPEC.md 1: a folder whose name begins with a dot is not read for docs.
+        if any(part.startswith(".") for part in f.relative_to(root).parts[:-1]):
+            continue
         fm = frontmatter(f)
         t = (fm or {}).get("type")
         if t in custom:

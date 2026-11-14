@@ -1,0 +1,5 @@
+{
+  "about": "Folders whose names begin with a dot are not read for docs, at any depth: a file with no frontmatter and a copy of DEC-0002 inside them are not docs (\u00a71).",
+  "valid": true,
+  "errors": []
+}

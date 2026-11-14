@@ -11,6 +11,9 @@ mkdirSync(out, { recursive: true });
 const BASE = "https://truss.md/spec/0.1/schemas/";
 // A path relative to the repo that cannot leave it: not absolute, no drive letter, no ~, no backslash, no .. segment.
 const SAFE_PATH = "^(?![/~\\\\])(?![A-Za-z]:)(?!(?:.*/)?\\.\\.(?:/|$))[^\\\\]+$";
+// A custom type's folder: a safe path in which no folder has a name that begins with a dot, because such a
+// folder is not read for docs (SPEC.md 1). A part that is "." alone is the folder itself and is allowed.
+const TYPE_FOLDER = "^(?![/~\\\\])(?![A-Za-z]:)(?!(?:.*/)?\\.\\.(?:/|$))(?!(?:.*/)?\\.[^/])[^\\\\]+$";
 
 const types = {
   problem:   { prefix: "PROB", folder: "problems",   statuses: ["open", "solved", "wont-solve"], frozen: ["solved", "wont-solve"] },
@@ -267,7 +270,10 @@ json("config.schema.json", {
         required: ["prefix", "statuses"],
         properties: {
           prefix: { type: "string", pattern: "^[A-Z][A-Z0-9]*$", not: { enum: Object.values(types).map((t) => t.prefix) } },
-          folder: { type: "string", pattern: SAFE_PATH },
+          folder: {
+            type: "string", pattern: TYPE_FOLDER,
+            description: "Default: the type name. No folder in the path may have a name that begins with a dot: such a folder is not read for docs",
+          },
           statuses: { type: "array", items: { type: "string" }, minItems: 1 },
           frozen: { type: "array", items: { type: "string" } },
           carries: { type: "array", items: { type: "string" } },

@@ -1,0 +1,10 @@
+{
+  "about": "A link to an ID that is written only in a folder whose name begins with a dot does not resolve (\u00a71).",
+  "valid": false,
+  "errors": [
+    {
+      "check": "links",
+      "file": "truss/prds/PRD-0001-team-invites.md"
+    }
+  ]
+}

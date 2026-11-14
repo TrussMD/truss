@@ -1,0 +1,10 @@
+{
+  "about": "A custom type's folder must not be a folder whose name begins with a dot, which is not read for docs (\u00a71, \u00a710.2).",
+  "valid": false,
+  "errors": [
+    {
+      "check": "schema",
+      "file": "truss.md"
+    }
+  ]
+}

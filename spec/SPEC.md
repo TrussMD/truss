@@ -27,6 +27,10 @@ truss/
 
 The type of a doc comes from its frontmatter, never from its folder. Folders are a convention: a misfiled doc is a hygiene warning, not an error.
 
+Tools look for docs anywhere under the docs folder, at any depth, with one exception. A folder whose name begins with a dot, such as `.trash/`, is not read: a tool MUST NOT look for docs in it. Nothing inside it is a doc, so a file there needs no frontmatter, an ID written in it does not count towards the `ids` check, and a link to that ID does not resolve. Such a folder can hold files that sit beside the docs without being docs, such as an editor's settings or a tool's own notes.
+
+The rule applies below the docs folder. The path in `root` may itself begin with a dot ([§9](#9-trussmd)). A custom type's `folder` MUST NOT name a folder that is not read ([§10.2](#102-custom-types)).
+
 ---
 
 ## 2. Documents
@@ -486,6 +490,7 @@ types:
 ```
 
 - The prefix MUST NOT be one of the core prefixes.
+- `folder` MUST NOT name a folder whose name begins with a dot, at any point in the path: such a folder is not read for docs ([§1](#1-a-truss-repo)).
 - A custom type adds rows to the link table, through `carries` and `carried_by`. It cannot change the core rows.
 - `related` works with custom types as with any other.
 - The required checks apply to custom types in full.
@@ -507,7 +512,7 @@ A repo that fails any of these is not a valid Truss repo. They read only the fil
 
 | Check | Fails when |
 |---|---|
-| **schema** | `truss.md` is missing or invalid. A doc's frontmatter does not match the schema for its type, its type is not declared or not in use, its status is not one its type allows, a required `_by` field is missing or names someone not permitted ([§6.4](#64-who-may-set-a-status)), or a path in `truss.md` or in a feature's `paths` leaves the repo ([§14](#14-security-considerations)) |
+| **schema** | `truss.md` is missing or invalid. A doc's frontmatter does not match the schema for its type, its type is not declared or not in use, its status is not one its type allows, a required `_by` field is missing or names someone not permitted ([§6.4](#64-who-may-set-a-status)), a path in `truss.md` or in a feature's `paths` leaves the repo ([§14](#14-security-considerations)), or a custom type's `folder` names a folder that is not read ([§1](#1-a-truss-repo)) |
 | **ids** | Two docs share an ID (reported on each of them), an ID is malformed, or a prefix does not match its type |
 | **links** | A link does not resolve, a `carries` pair is not in the link table, a `supersedes`, `depends_on` or `parent` link points to a type it may not, a `#label` does not exist in its target or is not that type's kind of label, or a ticket reference is malformed |
 | **supersession** | A superseding doc and the doc it supersedes disagree ([§6.3](#63-supersession)) |

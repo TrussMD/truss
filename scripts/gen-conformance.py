@@ -138,6 +138,9 @@ carries:
 ---
 Notes.
 """})
+case("valid-dot-folder", "Folders whose names begin with a dot are not read for docs, at any depth: a file with no frontmatter and a copy of DEC-0002 inside them are not docs (§1).", True,
+     add={"truss/.notes/PRD-0001/note-1.md": "A note kept beside the docs. It has no frontmatter and is not a doc.\n",
+          "truss/decisions/.trash/DEC-0002-links-7d.md": BASE["truss/decisions/DEC-0002-links-7d.md"]})
 case("valid-support-topic", "A support doc groups tickets; a problem and a change may cite it (§4.11, §5.1).", True,
      add={"truss/support/SUP-0001-link-expired.md": """---
 type: support
@@ -199,6 +202,8 @@ case("schema-root-absolute", "root must be a relative path (§9, §14).", False,
      config='---\nspec: "0.1"\nroot: /etc\n---\n# Docs\n')
 case("schema-custom-folder-outside-repo", "A custom type's folder must stay inside the repo (§10.2, §14).", False, [("schema", "truss.md")],
      config='---\nspec: "0.1"\ntypes:\n  memo:\n    prefix: MEMO\n    folder: ../memos\n    statuses: [draft]\n---\n# Docs\n')
+case("schema-custom-folder-dot-folder", "A custom type's folder must not be a folder whose name begins with a dot, which is not read for docs (§1, §10.2).", False, [("schema", "truss.md")],
+     config='---\nspec: "0.1"\ntypes:\n  memo:\n    prefix: MEMO\n    folder: .memos\n    statuses: [draft]\n---\n# Docs\n')
 case("schema-feature-path-outside-repo", "A feature's paths must stay inside the repo (§4.6, §14).", False, [("schema", "FEAT-0001")],
      add={"truss/features/FEAT-0001-team-invites.md": """---
 type: feature
@@ -221,6 +226,9 @@ case("ids-prefix-mismatch", "An ID whose prefix does not match its type.", False
      add={"truss/decisions/PRD-0099-wrong.md": "---\ntype: decision\nid: PRD-0099\ntitle: Wrong prefix\nstatus: proposed\ndate: 2026-08-01\n---\n"})
 case("links-unresolved", "A link to a doc that does not exist.", False, [("links", "PRD-0001")],
      edit={P: ("  - DEC-0002", "  - DEC-0099")})
+case("links-target-in-dot-folder", "A link to an ID that is written only in a folder whose name begins with a dot does not resolve (§1).", False, [("links", P)],
+     drop=[D1, D2, C],
+     add={"truss/.trash/DEC-0002-links-7d.md": BASE[D2].replace("supersedes: DEC-0001\n", "")})
 case("links-pair-not-allowed", "Research may not carry a change (§5.1).", False, [("links", "RES-0001")],
      edit={R: ("method: interviews\n", "method: interviews\ncarries:\n  - CHG-0001\n")})
 case("links-missing-label", "A label that does not exist in its target (§2.3).", False, [("links", "DEC-0002")],

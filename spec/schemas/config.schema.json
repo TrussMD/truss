@@ -157,7 +157,8 @@
           },
           "folder": {
             "type": "string",
-            "pattern": "^(?![/~\\\\])(?![A-Za-z]:)(?!(?:.*/)?\\.\\.(?:/|$))[^\\\\]+$"
+            "pattern": "^(?![/~\\\\])(?![A-Za-z]:)(?!(?:.*/)?\\.\\.(?:/|$))(?!(?:.*/)?\\.[^/])[^\\\\]+$",
+            "description": "Default: the type name. No folder in the path may have a name that begins with a dot: such a folder is not read for docs"
           },
           "statuses": {
             "type": "array",
